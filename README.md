@@ -1,2 +1,2 @@
 # python
-Note of tpython
+Note of tpthon
