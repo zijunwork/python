@@ -129,7 +129,7 @@ D:\code_dev>hello.py
 你好，devin!
 ```
 
-#### 2.5、 Test-002
+#### 2.5、Test-002
 
 > 编写程序：calc.py，要求用于输入1到100之间数字并判断，输入符号要求打印“你妹好漂亮”，不符合要求则打印“你大爷好丑”
 
@@ -155,4 +155,238 @@ D:\code_dev>calc.py
 请输入1到100之间的数字：101
 你大爷好丑
 ```
+
+
+
+### 第三章：基础知识-语法
+
+#### 3.0、 注释
+
++ 单行注释： 以 `#`开头
++ 多行注释： 用三个单引号（‘’’）或三个双引号（“”“）将注释括起来
+
+#### 3.1、变量
+
+在大多数语言中，当我们定义一个变量时，会把这个变量存储在内存中，也就是变量赋值。但是在Python中，没有存储内存一说，也就是变量就是一个名字。
+==值得注意==：
+
++ 在使用变量之前，需要对其先赋值
+
++ 变量名可以包括字母、数字、下划线，但是变量名不能以数字开头
+
++ 字母可以是大写或小写，但是大、小写是不同的
+
++ 等号（=）是赋值的意思
+
++ 变量命名尽量意义化
+
+  ```python
+  # test1.py
+  
+  # 数字变量
+  x = 1
+  print(x)  # > 1
+  x = 2
+  print(x)  # > 2
+  
+  # 字符串变量
+  x = 'hello'
+  y = 'world'
+  print(x + y)  # >= helloworld
+  ```
+
+#### 3.2、改进小游戏
+
+三大方面建议：
+
+1. 猜错提示，比如告诉用户当前输入值和答案相比是大了还是小了
+2. 如果猜错了，要多提供几次机会，至少3次机会
+3. 每次运行，答案都是随机的
+
+```python
+# test1.py
+import random
+answer = random.randint(1, 10)
+print("我想的数字是：" + answer)
+temp = input("不妨猜下我现在心里想得是哪个数字：")
+guess = int(temp)
+times = 1
+while (guess != answer) and (times < 3):
+    if guess > answer:
+        print("猜错啦，比我心里现在想的数字要大！")
+    else:
+        print("猜错啦，比我心里现在想的数字要小！")
+    temp = input("再试试猜猜看吧：")
+    guess = int(temp)
+    times = times + 1
+
+if (guess == answer) and (times <= 3):
+    print("你是我心里的蛔虫吗？！")
+    print("哼，即使你猜对了也没有奖励！")
+else:
+    print('三次都没有猜对，游戏结束，不玩啦^_^')
+```
+
+![](./_images/2_004.jpg)
+
+#### 3.3、数据类型
+
+Python中有6个标准的数据类型：
+
+1. Numbers (数字)
+2. String (字符串)
+3. List (列表)
+4. Tuple (元组)
+5. Sets (集合)
+6. Dictionaries (字典)
+
+#### 3.4、Numbers(数字)
+
+Python支持int(整型)、float(浮点型)、bool(布尔型)、complex(复数)。BIF`type()` 可以用来查询变量所指的对象类型。但是推荐是`isinstance()`这个BIF来判断变量类型。
+
+==需要注意：==
+
++ Python可以同时为多个变量赋值，比如：`a, b = 1, 2`
++ 一个变量可以通过赋值指向不同类型的对象
++ 数值的除法（/）总是返回一个浮点数，要获取整数使用（//）操作符
++ 在混合计算时，Python会把整型转换为浮点数
+
+```python
+# type() 查询变量类型
+a = 1
+b = 1.1
+c = True
+d = 4 + 3j
+print(type(a), type(b), type(c), type(d))
+# > <class 'int'> <class 'float'> <class 'bool'> <class 'complex' >
+
+# isinstance(v, type) 判断变量类型
+e = 'hello'
+print(isinstance(e, str))  # > True
+f = 33
+print(isinstance(f, float))  # > False
+```
+
+```python
+# 数值运算
+print(5 + 4)  # 加法 > 9
+print(4.2 - 2)  # 减法 > 2.2
+print(3 * 7)  # 乘法 > 21
+print(8 / 4)  # 除法，取浮点数 > 2.0
+print(2 // 5)  # 除法，取整数 > 0
+print(17 % 3)  # 除法，取余 > 2
+print(2 ** 5)  # 乘方 > 32
+print(True + True)  # 布尔运算 > 2
+print(True * False)  # 布尔运算 > 0
+```
+
+#### 3.5、 String(字符串)
+
+Python中的字符串str用单引号（’‘）或双引号（“”）括起来，同时使用反斜杠（\）转义特殊字符。
+
+字符串就是引号内的一切东西。字符串也成为文本，文本和数字是截然不同的。
+
+字符串需要出现特殊字符如何处理？比如:
+
+```python
+# 处理字符串中特殊字符的两种方案
+# e.g. Let's go
+
+# 方案一：转义
+print('Let\'s go') # > Let's go
+
+# 方案二：嵌套
+print("Let's go") # > Let's go
+```
+
+**原始字符串**
+
+原始字符串定义：`r'xxx'`
+
+```python
+# 原始字符串
+print(r'c:\\now') # > c:\\now
+```
+
+**长字符串**
+
+长字符串定义：```“““String”””``` (三重引号) 
+
+```python
+# 长字符串
+article = """
+这是第一段
+这是第二段
+
+这是第三段
+
+这是第四段
+"""
+print(article)
+```
+
+Python中的字符串有两种索引方式，第一种是从左往右，从0开始一次增加；第二种是从右往左，从-1开始依次减少。Python还可以对字符串进行切片，获取一段子串。用冒号分割两个索引，形式为变量[头下标:尾下标]。截取的范围是前闭后开的。
+
+```python
+# 字符串索引
+str = 'I love SZ'
+print(str[0], str[1], str[-1])  # > I   Z
+
+# 字符串切片
+str = "I love SZ"
+print(str[0:6])  # > I love
+
+# 字符串的值不能改变
+str = "I love SZ"
+# tr[0] = "i" !!报错
+```
+
+==需要注意==：
+
++ 反斜杠可以用来转义，使用`r`可以让反斜杠不发生转义
++ 字符串可以用`+`运算符连接在一起，用`*`运算符重复
++ Python中的字符串有两种索引方式，从左往右从0开始，从右往左以-1开始
++ Python中字符串不能改变
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
